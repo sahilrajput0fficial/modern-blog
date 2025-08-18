@@ -1,6 +1,12 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "blogs");
+$servername = "sql109.infinityfree.com";   
+$username   = "if0_39725298";              
+$password   = "blog9210819462";      
+$database   = "if0_39725298_blogs";      
+
+$conn = new mysqli($servername, $username, $password, $database);
 $result = $conn->query("SELECT * FROM blogs");
+
 
 ?>
 
