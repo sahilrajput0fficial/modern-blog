@@ -1,21 +1,43 @@
 <?php
-$conn = new mysqli("localhost","root","","blogs");
-
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $servername = "127.0.0.1"; 
+    $username   = "root";       
+    $password   = "";           
+    $database   = "blogs";
+} else {
+    $servername = "sql109.infinityfree.com";
+    $username   = "if0_39725298";
+    $password   = "blogs9210819462";
+    $database   = "if0_39725298_blogs";
+}
+$conn = new mysqli($servername, $username, $password, $database);
 $slug=$_GET["slug"]??'';
 $query = $conn->prepare("SELECT * FROM blogs WHERE slug=?");
 $query->bind_param("s",$slug);
 $query->execute();
 $result = $query->get_result();
 $blog= $result->fetch_assoc();
+$comm_query = $conn->prepare("Select count(*) as count from comments where blog_id = ?");
+$comm_query->bind_param("i",$blog["id"]);
+$comm_query->execute();
+$comm_query_result = $comm_query->get_result();
+$total_comment = $comm_query_result->fetch_assoc();
+
+$comm_text_query = $conn->prepare("Select comment_text as text from comments where blog_id = ?");
+$comm_text_query->bind_param("i",$blog["id"]);
+$comm_text_query-> execute();
+$comm_text_query_result = $comm_text_query->get_result();
+
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <title><?php echo $blog['title']; ?></title>
   <link rel="stylesheet" href = "style.css">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script defer src="script.js"></script>
 
 </head>
 <body>
@@ -54,13 +76,48 @@ $blog= $result->fetch_assoc();
             <span class="blog-tag"><?php echo $blog['tags']; ?></span>
             <span class="blog-tag">Lizard</span>
           </div>
-          <hr>
+          <hr class="my-3">
+          <p class="text-2xl font-semibold my-8">Comments (<?php echo $total_comment['count']?>)</p>
+          <div>
+            <?php while($row = $comm_text_query_result->fetch_assoc()): ?>
+              <div class="comment_card mx-4 my-4">
+                <div class="user-card">
+                  <div class="author-section flex items-center gap-2">
+                    <div class="flex items-center justify-center circle bg-[var(--primary)] size-8 ">
+                      <span class="text-white text-md font-semibold">SA</span>
+                    </div>
+                    <div class="text-lg font-semibold">
+                      <p>Sahil Rajput</p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="comment font-regular "><?php echo $row['text']?></p>
+                </div>
+                <div class="comment-reaction comment flex text-xl gap-5 ">
+                  <div class="flex items-center gap-2 unreact">
+                    <i class="fa-regular fa-thumbs-up"></i>
+                    <span class="text-sm">0</span>
+                  </div>
+                  <div class="flex items-center gap-2 unreact">
+                    <i class="fa-regular fa-thumbs-down"></i>
+                    <span class="text-sm">0</span>
+                  </div>
+                  <div class="flex items-center gap-2 unreact">
+                    <i class="fa-regular fa-comment-dots "></i>
+                    <span class="text-sm">Reply</span>
+                  </div>
+                  
+
+                </div>
+              </div>
+            <?php endwhile;?>
+            
+
+          </div>
         <?php else: ?>
           <p>Blog not found.</p>
         <?php endif; ?>
-      </div>
-      <div class="left-sidebar">
-        
       </div>
     </div>
 

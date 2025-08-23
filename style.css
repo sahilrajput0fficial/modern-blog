@@ -169,3 +169,7 @@ nav{
     flex-direction: column;
     flex:1;
 }
+.comment{
+    margin-left: 2.5rem;
+    margin-top:0.25rem;
+}
