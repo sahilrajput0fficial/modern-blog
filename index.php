@@ -1,17 +1,5 @@
 <?php
-if ($_SERVER['HTTP_HOST'] == 'localhost') {
-    $servername = "127.0.0.1"; 
-    $username   = "root";       
-    $password   = "";           
-    $database   = "blogs";
-} else {
-    $servername = "sql109.infinityfree.com";
-    $username   = "if0_39725298";
-    $password   = "your_infinityfree_password";
-    $database   = "if0_39725298_blogs";
-}
-
-$conn = new mysqli($servername, $username, $password, $database);
+require 'db.php';
 $result = $conn->query("SELECT * FROM blogs");
 
 
@@ -94,7 +82,7 @@ $result = $conn->query("SELECT * FROM blogs");
                                     <span class="blog-tag"><?php echo $row['tags'];?></span>
                                     <span class="text-gray-500 text-sm"><?php echo $row['date'];?></span>
                                 </div>
-                                <a href="blog.php?slug=<?php echo $row['slug']; ?>" target="_blank"class="title text-xl font-bold"><?php echo $row['title']; ?></a>
+                                <a href="blog.php?blog_name=<?php echo $row['blog_name']; ?>" target="_blank"class="title text-xl font-bold"><?php echo $row['title']; ?></a>
                                 <p class="text-sm mb-4"><?php echo strip_tags(substr($row['content'], 0, 270));?>...</p>
         
                                 <div class="flex justify-between ">

@@ -1,19 +1,12 @@
 <?php
-if ($_SERVER['HTTP_HOST'] == 'localhost') {
-    $servername = "127.0.0.1"; 
-    $username   = "root";       
-    $password   = "";           
-    $database   = "blogs";
-} else {
-    $servername = "sql109.infinityfree.com";
-    $username   = "if0_39725298";
-    $password   = "blogs9210819462";
-    $database   = "if0_39725298_blogs";
-}
-$conn = new mysqli($servername, $username, $password, $database);
-$slug=$_GET["slug"]??'';
-$query = $conn->prepare("SELECT * FROM blogs WHERE slug=?");
-$query->bind_param("s",$slug);
+require 'db.php';
+$blog_name=$_GET["blog_name"]??'';
+$viewcount = $conn ->prepare("UPDATE blogs set views = (views+1) where blog_name =?");
+$viewcount->bind_param("s",$blog_name);
+$viewcount->execute();
+
+$query = $conn->prepare("SELECT * FROM blogs WHERE blog_name=?");
+$query->bind_param("s",$blog_name);
 $query->execute();
 $result = $query->get_result();
 $blog= $result->fetch_assoc();
@@ -27,8 +20,6 @@ $comm_text_query = $conn->prepare("Select comment_text as text from comments whe
 $comm_text_query->bind_param("i",$blog["id"]);
 $comm_text_query-> execute();
 $comm_text_query_result = $comm_text_query->get_result();
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,7 +54,7 @@ $comm_text_query_result = $comm_text_query->get_result();
               </div>
             </div>
             <div class="text-gray-500">
-              <span><i class="fa-regular fa-eye"></i> 1.2k views</span>
+              <span><i class="fa-regular fa-eye"></i> <?php echo $blog['views'];?> views</span>
               <span><i class="fa-regular fa-clock"></i> 8 min read</span>
             </div>
           </div>
@@ -79,6 +70,24 @@ $comm_text_query_result = $comm_text_query->get_result();
           <hr class="my-3">
           <p class="text-2xl font-semibold my-8">Comments (<?php echo $total_comment['count']?>)</p>
           <div>
+            <div class="comment-form-container">
+              <h3>Leave a Comment</h3>
+              <form class="comment-form" id="comment-form" >
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="comment">Comment:</label>
+                  <textarea id="comment" name="comment" rows="5" required></textarea>
+                </div>
+                <button type="submit">Submit Comment</button>
+              </form>
+            </div>
             <?php while($row = $comm_text_query_result->fetch_assoc()): ?>
               <div class="comment_card mx-4 my-4">
                 <div class="user-card">
@@ -94,8 +103,8 @@ $comm_text_query_result = $comm_text_query->get_result();
                 <div>
                   <p class="comment font-regular "><?php echo $row['text']?></p>
                 </div>
-                <div class="comment-reaction comment flex text-xl gap-5 ">
-                  <div class="flex items-center gap-2 unreact">
+                <div id ="comment-div" class=" comment-reaction comment flex text-xl gap-5 ">
+                  <!--div class="flex items-center gap-2 unreact">
                     <i class="fa-regular fa-thumbs-up"></i>
                     <span class="text-sm">0</span>
                   </div>
@@ -105,8 +114,8 @@ $comm_text_query_result = $comm_text_query->get_result();
                   </div>
                   <div class="flex items-center gap-2 unreact">
                     <i class="fa-regular fa-comment-dots "></i>
-                    <span class="text-sm">Reply</span>
-                  </div>
+                    <span class="text-sm">Reply</span> -->
+                  </div>  
                   
 
                 </div>
@@ -123,4 +132,49 @@ $comm_text_query_result = $comm_text_query->get_result();
 
   </div>
 </body>
+<script>
+  let comment = document.getElementById("comment-form");
+  comment.addEventListener("submit",function(e){
+    e.preventDefault();
+    let data = new FormData(this);
+    fetch("add_comment.php",{
+      method:"POST",
+      body:data
+    })
+    .then(reponse=>respons.text())
+    .then(response=>{
+      if(response.includes("Success")){
+        this.reset();
+        loadComments();
+      }
+      else {
+      alert("Error: " + data);
+
+    }})
+  })
+
+  function loadComments(blog_id){
+    fetch("load_comments.php?blog_id="+blog_id)
+    .then(response=>response.json())
+    .then(response_json=>{
+      let section = document.getElementById("comment-div");
+      section.innerHTML="";
+
+      response_json.forEach (data=>{
+        section.innerHTML += `
+          <div class="comment">
+            <strong>${data.user_id}</strong>
+            <div class="meta">${data.created_at}</div>
+            <p>${data.comment_text}</p>
+          </div>`
+      })
+    })
+
+    
+  }
+  loadComments(<?php echo $blog["id"];?>);
+
+
+
+</script>
 </html>
