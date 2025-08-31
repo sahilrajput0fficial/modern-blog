@@ -1,3 +1,46 @@
+<?php 
+require '../db.php';
+session_start();
+if (isset($_POST['signup'])) {
+    $name = trim($_POST['name']);      
+    $email = trim($_POST['email']);     
+    $password = $_POST['password']; 
+    $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $check->bind_param("s", $email);
+    $check->execute();
+    $result = $check->get_result();
+    $date = date("Y-m-d");
+
+    if ($result->fetch_assoc()) {
+        echo "Email already registered!";
+    } else {
+        $insert = $conn->prepare("INSERT INTO users (name, email, password,created) VALUES (?, ?, ?,?)");
+        $insert->bind_param("sssd", $name, $email, $password,$date);
+
+        if ($insert->execute()) {
+          $_SESSION["user_id"]= $conn->insert_id;
+
+          header("Location: ../index.php");
+          exit();
+        } else {
+            echo "Error: " . $conn->error;
+        }
+        $insert->close();
+    }
+
+    $check->close();
+    $conn->close();
+}
+?>
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +52,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <div class="section flex gap-2">
-    <div class="form-section">
-      <div class="form-container">
+  <div class="section grid grid-cols-1 lg:grid-cols-2 ">
+
+    <div class="form-section lg:col-span-1 bg-white flex flex-col justify-start w-full h-full p-10">
+      <p class="text-4xl text-center text-[#970747] font-semibold p-3">Welcome to ModernBlog</p>
+      <div class="form-container ">
         <p class="form-title" style="margin-bottom:0.85rem">Create your account</p>
 
-        <form method="POST" action="signup.php" class="signup-form">
+        <form method="POST" action="signup.php" class="signup-form" >
           <div class="form-group">
             <label for="name">Full Name</label>
             <input id="name" name="name" type="text" placeholder="Jane Doe" required />
@@ -40,7 +85,7 @@
               Subscribe to email newsletter
             </label>
           </div>
-          <button class="submit-btn btn " type="submit">Sign up</button>
+          <button class="submit-btn btn mt-2" type="submit" name="signup">Sign up</button>
 
           <p class="for-login-link">
             Already have an account? <a class="no-underline font-[500] text-[#3b82f6]"href="login.php">Log in</a>
@@ -48,7 +93,7 @@
 
           <div class="divider flex items-center "><span>or sign up with</span></div>
 
-          <div class="social-buttons">
+          <div class="social-buttons grid grid-cols-2">
             <button class="social-btn" id="microsoft"><img src="https://img.icons8.com/color/24/000000/windows-10.png" /> Microsoft</button>
             <button class="social-btn"id="google"><img src="https://img.icons8.com/color/24/000000/google-logo.png" /> Google</button>
           </div>
@@ -60,10 +105,9 @@
         </form>
       </div>
     </div>
-    <div class="signup-section">
+    <div class="signup-section lg:col-span-1">
       <div class="info-content">
-        <h2>Start your journey.<br />Join our platform today.</h2>
-        <a href="#">Learn more</a>
+        <img src="../uploads/signup.png" alt="signup.png">
       </div>
     </div>
   </div>

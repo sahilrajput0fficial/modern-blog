@@ -10,6 +10,13 @@
     margin:0;
 
 }
+.line-clamp-3{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp:2;
+    -webkit-line-clamp: 2;
+}
 body{
     box-sizing: border-box;
     background-color: #fdf9f9;
@@ -21,7 +28,7 @@ body{
 }
 .container{
     margin: 0 auto;
-    padding: 1rem 5rem;
+    padding: 1rem 1rem;
     
 }
 .navigation{
@@ -72,6 +79,7 @@ nav{
     color:var(--primary);
     border-color:var(--primary);
 }
+
 .btn-2{
     background: var(--btn-col);
     color :var(--primary);
@@ -86,7 +94,7 @@ nav{
     border-color:var(--btn-col);
 }
 
-.featurepost{
+.list-post,.top-post{
     padding: 2.5rem 0;
 }
 .blog-tag {
@@ -112,14 +120,13 @@ nav{
     object-fit: cover;
     border-radius:5px;
 }
+.card{
+    height: 203px;
+}
 .sidebar{
-    display:flex;
-    flex-direction: column;
-
-    flex: 0 0 280px;
     background:#ffffff;
     padding:1.125rem;
-   border-radius: 0.5rem;
+    border-radius: 0.5rem;
 }
 .sidebar p{
     font-size:1.125rem;
@@ -160,6 +167,7 @@ nav{
     gap:2rem;
 }
 .title:hover{
+    margin-bottom: 2rem;
     color:var(--primary);
     text-decoration: underline var(--primary);
 
@@ -170,7 +178,6 @@ nav{
     flex:1;
 }
 .comment{
-    margin-left: 2.5rem;
     margin-top:0.25rem;
 }
 
@@ -183,21 +190,14 @@ nav{
 
 
 
-
-
-.form-section {
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  flex:1;
-  max-width: fit-content;
-}
 .form-title {
   font-size: 1.75rem;
   margin-bottom: 2rem;
   color: #1f1f1f;
+  font-weight: 600;
+}
+.form-group{
+    margin-bottom:0.5rem;
 }
 .form-group label {
   display: flex;
@@ -206,6 +206,13 @@ nav{
   font-size: 0.95rem;
 }
 .form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.form-group textarea {
   width: 100%;
   padding: 0.75rem;
   border: 1.5px solid #ccc;
@@ -251,5 +258,45 @@ nav{
     border: 1.5px solid #ccc;
     padding: 0.5rem;
     border-radius: 6px;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+
+}
+
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+        
+.category-card img {
+    transition: all 0.3s ease;
+    filter: brightness(0.7);
+}
+
+.category-card:hover img {
+    filter: brightness(2);
+    transform: scale(1.05);
+}
+
+.category-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.category-overlay {
+    background: linear-gradient(45deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.category-label {
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%);
+    padding-right: 25px;
 }
