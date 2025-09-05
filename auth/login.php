@@ -19,10 +19,8 @@ if (isset($_POST['login'])) {
             header("Location: ../index.php");
             exit();
         } else {
-            echo "Invalid login!";
         }
     } else {
-        echo "No user found!";
     }
 }
 ?>
