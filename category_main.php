@@ -26,9 +26,8 @@ $categories = $conn->query("SELECT id, name, image FROM categories ORDER BY name
             <h2 class="text-3xl font-bold mb-8 border-l-4 border-[var(--primary)] pl-3">
                 Explore Categories
             </h2>
-
             <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <?php while($cat = $categories->fetch_assoc()): ?>
+                <?php while($cat = $categories->fetch_assoc()):?>
                     <a href="category.php?category=<?php echo (strtolower($cat['name']));  ?>" 
                     class="group block bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
                     
