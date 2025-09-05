@@ -4,7 +4,7 @@
                 <a class="logo text-2xl font-bold" href="index.php">NSUT K Blogs</a>
                 <ul class="nav-list flex-wrap">
                     <li><a href="index.php">HOME</a></li>
-                    <li><a href="category.php?category=news">NEWS</a></li>
+                    <li><a href="category_main.php">ALL CATEGORIES</a></li>
                     <li><a href="category.php?category=sports">SPORTS</a></li>
                     <li><a href="category.php?category=technology">TECH</a></li>
                     <li><a href="myblogs.php">MY BLOGS</a></li>
