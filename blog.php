@@ -11,7 +11,6 @@ $blog_name=$_GET["blog_name"]??'';
 $viewcount = $conn ->prepare("UPDATE blogs set views = (views+1) where blog_name =?");
 $viewcount->bind_param("s",$blog_name);
 $viewcount->execute();
-
 $query = $conn->prepare("SELECT * FROM blogs WHERE blog_name=?");
 $query->bind_param("s",$blog_name);
 $query->execute();
@@ -41,6 +40,14 @@ $comm_text_query->bind_param("i",$blog["id"]);
 $comm_text_query-> execute();
 $comm_text_query_result = $comm_text_query->get_result();
 
+$neiquery = $conn->prepare("Select b.title as title ,b.blog_name as link from blogs b 
+inner join categories c
+on c.id = b.category
+where c.id = ?
+");
+$neiquery->bind_param("s",$blog["category"]);
+$neiquery->execute();
+$result = $neiquery->get_result();
 
 
 ?>
@@ -57,8 +64,11 @@ $comm_text_query_result = $comm_text_query->get_result();
 <body>
  <?php include 'sidebar.php'?>
   <div class="container">
-    <div>
-      <a href=""><i class="fa-solid fa-arrow-left-long mb-5"></i> Back to Posts</a>
+    <div class="text-sm mb-6 text-gray-500">
+      <a href="index.php" class="hover:text-[var(--primary)]">Home</a> >
+      <a href="category.php?category=<?php echo $category_tags['cat_tag']?>"><?php echo ucfirst($category_tags['cat_tag']); ?></a> >
+      <a class = "font-semibold text-black"><?php echo $blog_name;?></a>
+  
     </div>
     <div class="blog-container grid grid-cols-1 lg:grid-cols-4 gap-6">
       <div class="lg:col-span-3 content bg-white p-5 rounded-lg shadow-lg">
@@ -132,9 +142,9 @@ $comm_text_query_result = $comm_text_query->get_result();
         <div class="bg-white p-5 rounded-lg shadow-lg">
           <h3 class="text-xl font-semibold mb-3">Related Posts</h3>
           <ul class="space-y-2">
-            <li><a href="#" class="text-[var(--primary)] hover:underline">Another Blog Title</a></li>
-            <li><a href="#" class="text-[var(--primary)] hover:underline">Trending Article</a></li>
-            <li><a href="#" class="text-[var(--primary)] hover:underline">How to Write Blogs</a></li>
+            <?php while($val = $result->fetch_assoc()):?>
+            <li><a href="blog.php?blog_name=<?php echo $val["link"]?>" class="text-[var(--primary)] hover:underline"><?php echo $val["title"]?></a></li>
+            <?php endwhile;?>
           </ul>
         </div>
 
@@ -149,6 +159,8 @@ $comm_text_query_result = $comm_text_query->get_result();
       </aside>
   
     </div>
+  </div>
+  <?php include 'footer.php'?>
 
 </body>
 <script>
@@ -203,6 +215,7 @@ $comm_text_query_result = $comm_text_query->get_result();
     
   }
   loadComments(<?php echo $blog["id"];?>);
+  
 
 
 

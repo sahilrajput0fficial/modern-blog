@@ -12,6 +12,17 @@ if(isset($_POST["blog_submit"])){
     $link = $_POST["link"];
     $user_id = $_SESSION["user_id"];
     $selected_tags = json_decode($_POST['tags'], true);
+    $categoryName = $_POST["category"];
+    $catQuery = $conn->prepare("SELECT id FROM categories WHERE name = ? LIMIT 1");
+    $catQuery->bind_param("s", $categoryName);
+    $catQuery->execute();
+    $catResult = $catQuery->get_result();
+    if ($row = $catResult->fetch_assoc()) {
+        $category = $row['id']; 
+    } else {
+        $category = null;
+    }
+
     
     ////////////////
     $imagePath =null;
@@ -29,8 +40,8 @@ if(isset($_POST["blog_submit"])){
         }
     }
     //////////////////
-    $query = $conn->prepare("INSERT INTO blogs (user_id,title, blog_name,image,content,date) VALUES (?, ?,?,?,?,NOW())");
-    $query->bind_param("issss",$user_id, $title,$link, $imagePath,$content );
+    $query = $conn->prepare("INSERT INTO blogs (user_id,title, blog_name,image,content,category,date) VALUES (?, ?,?,?,?,?,NOW())");
+    $query->bind_param("issssi",$user_id, $title,$link, $imagePath,$content,$category);
 
     if ($query->execute()) {
         echo "Blog published successfully!";
@@ -56,6 +67,12 @@ while($tag = $result->fetch_assoc()){
     $tags[]=$tag["name"];
 }
 
+
+$category = [];
+$result = $conn->query("SELECT name FROM categories");
+while($row = $result->fetch_assoc()){
+    $category[] = $row['name'];
+}
 
 
 
@@ -99,13 +116,36 @@ while($tag = $result->fetch_assoc()){
                         <label for="imageUpload">Cover Image</label>
                         <input type="file" id="imageUpload" name="image" accept="image/*">
                     </div>
-                    <div class="form-group"></div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <div x-data="singleSelect()" class="w-full relative">
+                            <input 
+                                type="text" 
+                                x-model="search"
+                                @focus="open = true" 
+                                placeholder="Select option..."
+                                class="w-full border px-2 py-1 rounded"
+                            >
+
+                            <div x-show="open && filteredOptions().length > 0" 
+                                class="absolute z-10 w-full border rounded mt-1 bg-white shadow max-h-40 overflow-y-auto">
+                                <template x-for="(option, index) in filteredOptions()" :key="index">
+                                    <div 
+                                        @click="choose(option)" 
+                                        class="px-3 py-2 cursor-pointer hover:bg-gray-200"
+                                        x-text="option">
+                                    </div>
+                                </template>
+                            </div>
+                            <input type="hidden" name="category" x-model="selected">
+                        </div>
+                    </div>
                     <script>
                         let dbTags = <?php echo json_encode($tags); ?>;
                     </script>
                     <div class="mt-4 font-semibold"><p class="my-4">Add Blog Tags</p>
                         <div x-data="{
-                            open: false, tags: [], options: dbTags, newTag: ''}" class="w-full max-w-md">
+                            open: false, tags: [], options: dbTags, newTag: ''}" class="w-full">
 
                             <div class="border rounded p-2 cursor-pointer flex flex-wrap items-center" @click="open = !open">
                                 <template x-for="tag in tags" :key="tag">
@@ -192,6 +232,26 @@ while($tag = $result->fetch_assoc()){
             },
         removeTag(index) {
         this.selected.splice(index, 1);
+            }
+        }
+    }
+    let catlist = <?php echo json_encode($category); ?>;
+
+    function singleSelect() {
+        return {
+            open: false,
+            search: "",
+            options: catlist,
+            selected: "",
+            filteredOptions() {
+                return this.options.filter(opt => 
+                    opt.toLowerCase().includes(this.search.toLowerCase())
+                );
+            },
+            choose(option) {
+                this.selected = option;
+                this.search = option;
+                this.open = false;
             }
         }
     }
