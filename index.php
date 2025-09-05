@@ -97,13 +97,13 @@ $images=$img_query->get_result();
                 <div class="color-back bg-[#970747] rounded-lg p-3">
                     
                     <div class="p-3">
-                    <p class="text-4xl text-center text-white font-semibold p-3">Welcome to ModernBlog</p>
+                    <p class="text-4xl text-center text-white font-semibold p-3">Welcome to NSUT K Blogs</p>
                     <p class="text-2xl text-center text-yellow-100">Discover insightful articles, tutorials, and stories from our community of writers.</p>
 
                     </div>
                     <div class="btn-group flex gap-2 justify-center p-3">
-                        <button class="btn-2">Get Started</button>
-                        <button class="btn-2">Log in</button>
+                        <a href="auth/signup.php" class="btn-2">Get Started</a>
+                        <a href="auth/login.php" class="btn-2">Log in</a>
                     </div>
                 </div>
 
