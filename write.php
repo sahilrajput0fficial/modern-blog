@@ -24,7 +24,7 @@ if(isset($_POST["blog_submit"])){
     }
 
     
-    ////////////////
+    //Directly Copied From ChatGPT
     $imagePath =null;
     if (!empty($_FILES['image']['name'])) {
         $targetDir = "uploads/";
@@ -39,7 +39,7 @@ if(isset($_POST["blog_submit"])){
             $imagePath = $targetFile;
         }
     }
-    //////////////////
+    //////////////////////////////////////////
     $query = $conn->prepare("INSERT INTO blogs (user_id,title, blog_name,image,content,category,date) VALUES (?, ?,?,?,?,?,NOW())");
     $query->bind_param("issssi",$user_id, $title,$link, $imagePath,$content,$category);
 
