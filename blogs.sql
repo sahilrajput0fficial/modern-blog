@@ -5,3 +5,5 @@ create table blogs(
     image varchar(255),
     content text
 )
+
+#test for autoation
