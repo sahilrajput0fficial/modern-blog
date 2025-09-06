@@ -24,6 +24,6 @@ if defined changes (
     echo No changes. Skipping commit.
 )
 
-echo Waiting 60 seconds (0.3 days)...
-timeout /t 60 >nul
+echo Waiting 3600 seconds (1 hour)...
+timeout /t 3600 >nul
 goto loop
