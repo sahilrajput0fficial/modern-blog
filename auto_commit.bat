@@ -18,12 +18,12 @@ if defined changes (
     echo Changes found! Committing...
     git add .
     git commit -m "Auto-commit at %date% %time%"
-    git push origin main
+    git push origin auto-backup
     set changes=
 ) else (
     echo No changes. Skipping commit.
 )
 
-echo Waiting 3600 seconds (1 hour)...
-timeout /t 3600 >nul
+echo Waiting 900 seconds (1 hour)...
+timeout /t 900 >nul
 goto loop
