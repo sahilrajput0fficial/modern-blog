@@ -7,10 +7,7 @@ if (isset($_SESSION['user_id'])){
     $user_query->execute();
     $run= $user_query->get_result();
     $stats = $run->fetch_assoc();
-    
 }
-
-
 $result = $conn->query("SELECT b.* ,c.name as cat_tag ,u.name as writer FROM blogs b
 left join categories c on c.id = b.category
 left join users u on u.id = b.user_id 
