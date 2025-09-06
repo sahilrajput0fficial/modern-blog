@@ -69,7 +69,7 @@ $topAuthors = $stmt->get_result();
                                 alt="<?php echo $row['title']; ?>" 
                                 class="w-full h-52 object-cover group-hover:scale-105 transition duration-500">
                         <span class="absolute bottom-2 left-2 bg-[var(--primary)] text-white text-xs font-bold px-2 py-1 rounded">
-                            <?php echo $row['category']; ?>
+                            <?php echo $row['category_name']; ?>
                         </span>
                     </a>
                     <div class="p-4">

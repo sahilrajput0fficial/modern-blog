@@ -116,6 +116,7 @@ while($row = $result->fetch_assoc()){
                         <label for="imageUpload">Cover Image</label>
                         <input type="file" id="imageUpload" name="image" accept="image/*">
                     </div>
+                    <!-----Directly Copied From ChatGPT-->
                     <div class="form-group">
                         <label for="category">Category</label>
                         <div x-data="singleSelect()" class="w-full relative">
@@ -184,6 +185,7 @@ while($row = $result->fetch_assoc()){
                             <input type="hidden" name="tags" :value="JSON.stringify(tags)">
                         </div>
                     </div>
+                    <!------------------------------------>
 
 
 
