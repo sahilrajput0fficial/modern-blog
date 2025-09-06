@@ -44,7 +44,7 @@ if (isset($_POST['login'])) {
     </div>
 
     <div class="form-section lg:col-span-1 bg-white flex flex-col justify-start w-full h-full p-10">
-      <p class="text-4xl text-center text-[#970747] font-semibold p-3">Welcome Back to ModernBlog</p>
+      <p class="text-4xl text-center text-[#970747] font-semibold p-3">Welcome Back to NSUT K Blogs</p>
       <div class="form-container">
         <p class="form-title" style="margin-bottom:0.85rem">Log in to your account</p>
 

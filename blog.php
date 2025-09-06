@@ -11,7 +11,7 @@ $blog_name=$_GET["blog_name"]??'';
 $viewcount = $conn ->prepare("UPDATE blogs set views = (views+1) where blog_name =?");
 $viewcount->bind_param("s",$blog_name);
 $viewcount->execute();
-$query = $conn->prepare("SELECT * FROM blogs WHERE blog_name=?");
+$query = $conn->prepare("SELECT * FROM blogs WHERE blog_name=? and is_approved=1");
 $query->bind_param("s",$blog_name);
 $query->execute();
 $result = $query->get_result();

@@ -55,7 +55,7 @@ if (isset($_POST['signup'])) {
   <div class="section grid grid-cols-1 lg:grid-cols-2 ">
 
     <div class="form-section lg:col-span-1 bg-white flex flex-col justify-start w-full h-full p-10">
-      <p class="text-4xl text-center text-[#970747] font-semibold p-3">Welcome to ModernBlog</p>
+      <p class="text-4xl text-center text-[#970747] font-semibold p-3">Welcome to NSUT K Blogs</p>
       <div class="form-container ">
         <p class="form-title" style="margin-bottom:0.85rem">Create your account</p>
 
