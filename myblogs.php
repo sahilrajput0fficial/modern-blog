@@ -49,6 +49,7 @@ $result = $query->get_result();
                     <th class="px-4 py-3 border-b">Category</th>
                     <th class="px-4 py-3 border-b">Published On</th>
                     <th class="px-4 py-3 border-b">Approval Status</th>
+                    <th class="action px-4 py-3 border-b">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -64,10 +65,22 @@ $result = $query->get_result();
                     <td class="px-4 py-3 border-b">
                         <?php if ($blog['is_approved'] == 1): ?>
                         <span class="text-green-600 font-semibold">Approved</span>
+                        <?php elseif ($blog["is_approved"]==-1):?>
+                        <span class="text-red-800 font-semibold">Rejected</span>
                         <?php else: ?>
                         <span class="text-red-600 font-semibold">Pending</span>
                         <?php endif; ?>
                     </td>
+                    <td class="px-4 py-3 border-b">
+                        <button class="actionbtn view bg-green-200">
+                            <i></i>
+                        </button>
+                        <button class="actionbtn edit bg-gray-200"></button>
+                        <button class="actionbtn delete bg-red-200"></button>
+
+                            
+                    </td>
+
                     </tr>
                 <?php endwhile; ?>
                 </tbody>
