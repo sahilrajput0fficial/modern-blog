@@ -2,10 +2,6 @@
 require 'db.php';
 
 session_start();
-if (!isset($_SESSION["user_id"])) {
-    header("Location: auth/login.php");
-    exit;
-}
 
 $blog_name=$_GET["blog_name"]??'';
 $viewcount = $conn ->prepare("UPDATE blogs set views = (views+1) where blog_name =?");
