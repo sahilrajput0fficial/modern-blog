@@ -71,16 +71,16 @@ $result = $query->get_result();
                         <span class="text-red-600 font-semibold">Pending</span>
                         <?php endif; ?>
                     </td>
-                    <td class="px-4 py-3 border-b text-center">
-                        <button class="actionbtn view bg-green-700 py-2 px-2 rounded-lg text-white">
+                    <td class="px-4 py-3 border-b text-center flex gap-2 justify-center">
+                        <a href="blog.php?blog_name=<?php echo $blog['blog_name']?>" class="actionbtn view bg-green-700 py-2 px-2 rounded-lg text-white hover:bg-green-900">
                             <i class="fa-solid fa-eye"></i>
-                        </button>
-                        <button class="actionbtn edit bg-gray-700 py-2 px-2 rounded-lg text-white">
+                        </a>
+                        <a class="actionbtn edit bg-gray-700 py-2 px-2 rounded-lg text-white">
                             <i class="fa-solid fa-pencil"></i>
-                        </button>
-                        <button class="actionbtn delete bg-red-700 py-2 px-2 rounded-lg text-white">
+                        </a>
+                        <a class="actionbtn delete bg-red-700 py-2 px-2 rounded-lg text-white">
                             <i class="fa-solid fa-trash"></i>
-                        </button>
+                        </a>
 
                             
                     </td>

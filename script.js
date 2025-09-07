@@ -17,7 +17,11 @@ window.addEventListener('scroll', function(){
 
 document.querySelectorAll(".blog-tag").forEach(el => {
     el.addEventListener("click", function() {
-        let category = (el.innerText.trim()).toLowerCase();
+        let category = (el.innerText).toLowerCase();
         window.location.href = "category.php?category=" + encodeURIComponent(category);
     });
 });
+
+document.querySelector(".view").addEventListener("click",function(){
+    window.location.href = ""
+})
