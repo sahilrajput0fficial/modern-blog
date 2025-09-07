@@ -75,10 +75,10 @@ $result = $query->get_result();
                         <a href="blog.php?blog_name=<?php echo $blog['blog_name']?>" class="actionbtn view bg-green-700 py-2 px-2 rounded-lg text-white hover:bg-green-900">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a class="actionbtn edit bg-gray-700 py-2 px-2 rounded-lg text-white">
+                        <a class="actionbtn edit bg-gray-700 py-2 px-2 rounded-lg text-white  hover:bg-gray-900">
                             <i class="fa-solid fa-pencil"></i>
                         </a>
-                        <a class="actionbtn delete bg-red-700 py-2 px-2 rounded-lg text-white">
+                        <a class="actionbtn delete bg-red-700 py-2 px-2 rounded-lg text-white  hover:bg-red-900">
                             <i class="fa-solid fa-trash"></i>
                         </a>
 

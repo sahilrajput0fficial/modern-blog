@@ -281,7 +281,7 @@ $images=$img_query->get_result();
                 Lifestyle
                 </h2>
             </div>
-            <div class=" grid grid-cols-3 gap-6">
+            <div class=" grid grid-cols-4 gap-6">
                 <?php while($row = $life_result->fetch_assoc()): ?>
                 <div class="group overflow-hidden rounded-lg shadow hover:shadow-lg transition bg-white grid grid-cols-2" >
                     <div >
@@ -292,7 +292,7 @@ $images=$img_query->get_result();
                                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ">
                             </div>
                             <span class="absolute bottom-2 left-2 bg-[var(--primary)] text-white text-xs font-bold px-2 py-1 rounded">
-                                <?php echo $row['category']; ?>
+                                <?php echo $row['category_name']; ?>
                             </span>
                         </a>
                     </div>
