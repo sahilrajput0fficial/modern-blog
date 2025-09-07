@@ -49,7 +49,7 @@ $result = $query->get_result();
                     <th class="px-4 py-3 border-b">Category</th>
                     <th class="px-4 py-3 border-b">Published On</th>
                     <th class="px-4 py-3 border-b">Approval Status</th>
-                    <th class="action px-4 py-3 border-b">Actions</th>
+                    <th class="action px-4 py-3 border-b text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -71,12 +71,16 @@ $result = $query->get_result();
                         <span class="text-red-600 font-semibold">Pending</span>
                         <?php endif; ?>
                     </td>
-                    <td class="px-4 py-3 border-b">
-                        <button class="actionbtn view bg-green-200">
-                            <i></i>
+                    <td class="px-4 py-3 border-b text-center">
+                        <button class="actionbtn view bg-green-700 py-2 px-2 rounded-lg text-white">
+                            <i class="fa-solid fa-eye"></i>
                         </button>
-                        <button class="actionbtn edit bg-gray-200"></button>
-                        <button class="actionbtn delete bg-red-200"></button>
+                        <button class="actionbtn edit bg-gray-700 py-2 px-2 rounded-lg text-white">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button class="actionbtn delete bg-red-700 py-2 px-2 rounded-lg text-white">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
 
                             
                     </td>

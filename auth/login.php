@@ -36,7 +36,7 @@ if (isset($_POST['login'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <div class="section grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+  <div class="section grid grid-cols-2 min-h-screen">
     <div class="signup-section lg:col-span-1">
       <div class="info-content">
         <img src="../uploads/login.png" alt="login.png">
