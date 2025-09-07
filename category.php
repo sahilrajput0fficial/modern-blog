@@ -10,7 +10,8 @@ left join categories c
 on c.id = b.category
 left join users u 
 on u.id = b.user_id
-where c.name=?;");
+where c.name=?
+and b.is_approved=1;");
 $query->bind_param("s",$name);
 $query->execute();
 $result = $query ->get_result();
