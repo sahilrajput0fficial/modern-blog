@@ -44,12 +44,15 @@ $lifestyle_query = $conn->prepare("SELECT b.*, u.name as author, c.name as categ
 FROM blogs b
 LEFT JOIN categories c ON c.id = b.category
 LEFT JOIN users u ON u.id = b.user_id
-WHERE c.name = ?");
-$lifestyle_query->bind_param("s", $category);
+WHERE c.name = ?
+order by b.views DESC
+limit 1");
 $category = "Lifestyle";
+$lifestyle_query->bind_param("s", $category);
 $lifestyle_query->execute();
 $life_result=$lifestyle_query->get_result();
-$catgeory = "Technology";
+
+$category = "Technology";
 $lifestyle_query->bind_param("s", $category);
 $lifestyle_query->execute();
 $tech_result=$lifestyle_query->get_result();
