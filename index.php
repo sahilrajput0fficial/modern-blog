@@ -49,6 +49,12 @@ $lifestyle_query->bind_param("s", $category);
 $category = "Lifestyle";
 $lifestyle_query->execute();
 $life_result=$lifestyle_query->get_result();
+$catgeory = "Technology";
+$lifestyle_query->bind_param("s", $category);
+$lifestyle_query->execute();
+$tech_reesult
+
+
 
 
 $topauth_query = $conn->prepare("
@@ -276,12 +282,12 @@ $images=$img_query->get_result();
         </div>
     </section>
     <section class="lifestyle">
-        <div class="container flex">
+        <div class="container grid grid-cols-2 gap-6">
             <div class="mb-10">
                 <h2 class="text-2xl font-bold mb-6 border-l-4 border-[var(--primary)] pl-3">
                 Lifestyle
                 </h2>
-                <div class=" grid grid-cols-3 gap-6">
+                <div class=" grid grid-cols-1 gap-6">
                 <?php while($row = $life_result->fetch_assoc()): ?>
                 <div class="group overflow-hidden rounded-lg shadow hover:shadow-lg transition bg-white grid grid-cols-2" >
                     <div >
