@@ -276,13 +276,12 @@ $images=$img_query->get_result();
         </div>
     </section>
     <section class="lifestyle">
-        <div class="container">
+        <div class="container flex">
             <div class="mb-10">
                 <h2 class="text-2xl font-bold mb-6 border-l-4 border-[var(--primary)] pl-3">
                 Lifestyle
                 </h2>
-            </div>
-            <div class=" grid grid-cols-3 gap-6">
+                <div class=" grid grid-cols-3 gap-6">
                 <?php while($row = $life_result->fetch_assoc()): ?>
                 <div class="group overflow-hidden rounded-lg shadow hover:shadow-lg transition bg-white grid grid-cols-2" >
                     <div >
@@ -314,6 +313,13 @@ $images=$img_query->get_result();
                 </div>
                 <?php endwhile; ?>
             </div>
+            </div>
+            
+            <div class="mb-10">
+                <h2 class="text-2xl font-bold mb-6 border-l-4 border-[var(--primary)] pl-3">
+                Technology
+                </h2>
+            </div>
 
         </div>
     </section>
@@ -333,58 +339,62 @@ $images=$img_query->get_result();
 
                 <div class="grid grid-cols-4 gap-8">
                     <?php while($row = $run->fetch_assoc()): ?>
-                    <div class="video-card group cursor-pointer transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                        <div class="relative overflow-hidden rounded-t-xl bg-black aspect-video">
-                            <img 
-                                src="uploads/<?php echo $row['image']; ?>" 
-                                alt="<?php echo htmlspecialchars($row['title']); ?>"
-                                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                            >
-                            <div class="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300 group-hover:bg-opacity-20"></div>
-                            
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <button class="play-btn w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 hover:bg-opacity-100 hover:scale-110 group-hover:shadow-xl">
-                                    <svg class="w-6 h-6 text-[#970747] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            
-                            <div class="absolute bottom-3 right-3 bg-black bg-opacity-80 text-white text-xs px-2 py-1 rounded-md">
-                                <?php echo $row['time']; ?> min
-                            </div>
-                        </div>
-                        <div class="bg-white p-5 rounded-b-xl border-l border-r border-b border-gray-200">
-                            <h3 class="video-title font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-[#970747] transition-colors duration-200">
-                                <?php echo htmlspecialchars($row['title']); ?>
-                            </h3>
-                            
-                            <div class="flex items-center justify-between text-sm text-gray-600">
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-8 h-8 bg-[#970747] rounded-full flex items-center justify-center">
-                                        <span class="text-white font-semibold text-xs">
-                                            <?php echo strtoupper(substr($row['author'], 0, 1)); ?>
-                                        </span>
-                                    </div>
-                                    <span class="font-medium hover:text-[#970747] transition-colors">
-                                        <?php echo htmlspecialchars($row['author']); ?>
-                                    </span>
+                    <a href="<?php echo $row['link']; ?>" target="_blank">
+                        <div class="video-card group cursor-pointer transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                            <div class="relative overflow-hidden rounded-t-xl bg-black aspect-video">
+                                <img 
+                                    src="uploads/<?php echo $row['image']; ?>" 
+                                    alt="<?php echo htmlspecialchars($row['title']); ?>"
+                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                >
+                                <div class="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300 group-hover:bg-opacity-20"></div>
+                                
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <button class="play-btn w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 hover:bg-opacity-100 hover:scale-110 group-hover:shadow-xl">
+                                        <svg class="w-6 h-6 text-[#970747] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    </button>
                                 </div>
                                 
-                                <div class="flex items-center space-x-1 text-gray-500">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                    </svg>
-                                    <span><?php echo $row['time']; ?> min ago</span>
+                                <div class="absolute bottom-3 right-3 bg-black bg-opacity-80 text-white text-xs px-2 py-1 rounded-md">
+                                    <?php echo $row['time']; ?> min
                                 </div>
                             </div>
-                            <div class="mt-4 flex space-x-2">
-                                <button class="flex-1 bg-[#970747] hover:bg-[#7a0536] text-white py-2 px-4 rounded-lg transition-colors duration-200 font-medium">
-                                    Watch Now
-                                </button>
+                            <div class="bg-white p-5 rounded-b-xl border-l border-r border-b border-gray-200">
+                                <h3 class="video-title font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-[#970747] transition-colors duration-200">
+                                    <?php echo htmlspecialchars($row['title']); ?>
+                                </h3>
+                                
+                                <div class="flex items-center justify-between text-sm text-gray-600">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-8 h-8 bg-[#970747] rounded-full flex items-center justify-center">
+                                            <span class="text-white font-semibold text-xs">
+                                                <?php echo strtoupper(substr($row['author'], 0, 1)); ?>
+                                            </span>
+                                        </div>
+                                        <span class="font-medium hover:text-[#970747] transition-colors">
+                                            <?php echo htmlspecialchars($row['author']); ?>
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="flex items-center space-x-1 text-gray-500">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        <span><?php echo $row['time']; ?> min ago</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex space-x-2">
+                                    
+                                        <button class="flex-1 bg-[#970747] hover:bg-[#7a0536] text-white py-2 px-4 rounded-lg transition-colors duration-200 font-medium">
+                                            Watch Now
+                                        </button>
+                                    
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     <?php endwhile; ?>
                 </div>
 
