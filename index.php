@@ -52,7 +52,7 @@ $life_result=$lifestyle_query->get_result();
 $catgeory = "Technology";
 $lifestyle_query->bind_param("s", $category);
 $lifestyle_query->execute();
-$tech_reesult
+$tech_result=$lifestyle_query->get_result();
 
 
 
@@ -288,43 +288,75 @@ $images=$img_query->get_result();
                 Lifestyle
                 </h2>
                 <div class=" grid grid-cols-1 gap-6">
-                <?php while($row = $life_result->fetch_assoc()): ?>
-                <div class="group overflow-hidden rounded-lg shadow hover:shadow-lg transition bg-white grid grid-cols-2" >
-                    <div >
-                        <a href="blog.php?blog_name=<?php echo $row['blog_name']; ?>" class="block relative w-full h-full">
-                            <div class="w-full h-full overflow-hidden">
-                                <img src="uploads/<?php echo $row['image']; ?>" 
-                                        alt="<?php echo $row['title']; ?>" 
-                                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ">
-                            </div>
-                            <span class="absolute bottom-2 left-2 bg-[var(--primary)] text-white text-xs font-bold px-2 py-1 rounded">
-                                <?php echo $row['category_name']; ?>
-                            </span>
-                        </a>
+                    <?php while($row = $life_result->fetch_assoc()): ?>
+                    <div class="group overflow-hidden rounded-lg shadow hover:shadow-lg transition bg-white grid grid-cols-2" >
+                        <div >
+                            <a href="blog.php?blog_name=<?php echo $row['blog_name']; ?>" class="block relative w-full h-full">
+                                <div class="w-full h-full overflow-hidden">
+                                    <img src="uploads/<?php echo $row['image']; ?>" 
+                                            alt="<?php echo $row['title']; ?>" 
+                                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ">
+                                </div>
+                                <span class="absolute bottom-2 left-2 bg-[var(--primary)] text-white text-xs font-bold px-2 py-1 rounded">
+                                    <?php echo $row['category_name']; ?>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="p-4">
+                            <p class="blog-tag"><?php echo $row['category_name']?></p></br>
+                            <a href="blog.php?blog_name=<?php echo $row['blog_name']; ?>" 
+                                class="font-bold text-lg group-hover:text-[var(--primary)] transition">
+                                <?php echo $row['title']; ?>
+                            </a>
+                            <p class="text-gray-500 text-sm mt-2 line-clamp-2">
+                                <?php echo strip_tags(substr($row['content'],0,200))?>...
+                            </p>
+                            <p class="text-gray-500 text-sm mt-2">
+                                By <?php echo $row['author']; ?> · 
+                                <?php echo ($row['date']); ?>
+                            </p>
+                        </div>
                     </div>
-                    <div class="p-4">
-                        <p class="blog-tag"><?php echo $row['category_name']?></p></br>
-                        <a href="blog.php?blog_name=<?php echo $row['blog_name']; ?>" 
-                            class="font-bold text-lg group-hover:text-[var(--primary)] transition">
-                            <?php echo $row['title']; ?>
-                        </a>
-                        <p class="text-gray-500 text-sm mt-2 line-clamp-2">
-                            <?php echo strip_tags(substr($row['content'],0,200))?>...
-                        </p>
-                        <p class="text-gray-500 text-sm mt-2">
-                            By <?php echo $row['author']; ?> · 
-                            <?php echo ($row['date']); ?>
-                        </p>
-                    </div>
+                    <?php endwhile; ?>
                 </div>
-                <?php endwhile; ?>
-            </div>
             </div>
             
             <div class="mb-10">
                 <h2 class="text-2xl font-bold mb-6 border-l-4 border-[var(--primary)] pl-3">
                 Technology
                 </h2>
+                <div class=" grid grid-cols-1 gap-6">
+                    <?php while($row = $tech_result->fetch_assoc()): ?>
+                    <div class="group overflow-hidden rounded-lg shadow hover:shadow-lg transition bg-white grid grid-cols-2" >
+                        <div >
+                            <a href="blog.php?blog_name=<?php echo $row['blog_name']; ?>" class="block relative w-full h-full">
+                                <div class="w-full h-full overflow-hidden">
+                                    <img src="uploads/<?php echo $row['image']; ?>" 
+                                            alt="<?php echo $row['title']; ?>" 
+                                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ">
+                                </div>
+                                <span class="absolute bottom-2 left-2 bg-[var(--primary)] text-white text-xs font-bold px-2 py-1 rounded">
+                                    <?php echo $row['category_name']; ?>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="p-4">
+                            <p class="blog-tag"><?php echo $row['category_name']?></p></br>
+                            <a href="blog.php?blog_name=<?php echo $row['blog_name']; ?>" 
+                                class="font-bold text-lg group-hover:text-[var(--primary)] transition">
+                                <?php echo $row['title']; ?>
+                            </a>
+                            <p class="text-gray-500 text-sm mt-2 line-clamp-2">
+                                <?php echo strip_tags(substr($row['content'],0,200))?>...
+                            </p>
+                            <p class="text-gray-500 text-sm mt-2">
+                                By <?php echo $row['author']; ?> · 
+                                <?php echo ($row['date']); ?>
+                            </p>
+                        </div>
+                    </div>
+                    <?php endwhile; ?>
+                </div>
             </div>
 
         </div>
