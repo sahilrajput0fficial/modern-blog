@@ -1,4 +1,3 @@
-# modern-blog
 # NSUT k Blogs  
 
 A blogging platform built with PHP, MySQL, and Tailwind CSS.  
