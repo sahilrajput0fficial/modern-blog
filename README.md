@@ -1,4 +1,6 @@
 # modern-blog
+# NSUT k Blogs  
 
+A blogging platform built with PHP, MySQL, and Tailwind CSS.  
 
-make writer page add category dropdown multiselect of tags 
+🔗 **Live Demo**: [[Visit Website] (https://modern-blog.infinityfree.me/))  
