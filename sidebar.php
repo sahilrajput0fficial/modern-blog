@@ -13,10 +13,14 @@
                 </ul>
                 <div>
                     <div class="relative flex gap-2">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center ">
-                            <i class="fa-solid fa-magnifying-glass text-[#970747]"></i>
-                        </span>
-                        <input name="search" class="pl-8 pr-3 pt-1.5 pb-1.5 justify-center border rounded-md border-[#970747] focus:outline-none focus:ring-1 focus:ring-[#970747] text-sm"placeholder="Search posts..." aria-label="search" />
+                        <form method="GET" action="search.php" class="search-form">
+                            <input name="search" class="pl-3 pr-8 pt-1.5 pb-1.5 justify-center border rounded-md border-[#970747] focus:outline-none focus:ring-1 focus:ring-[#970747] text-sm"placeholder="Search posts..." aria-label="search" />
+                            <button class="absolute inset-y-0 left-44 flex items-center cursor-pointer">
+                                <i class="fa-solid fa-magnifying-glass text-[#970747]"></i>
+                            </button>
+        
+                        </form>
+
                         <?php if (isset($_SESSION['user_id'])):?>
                             <a  class="btn" href="write.php">
                                 <i class="fa-solid fa-plus"></i>
