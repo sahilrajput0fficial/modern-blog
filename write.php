@@ -41,20 +41,59 @@ if(isset($_POST["blog_submit"])){
     }
     //////////////////////////////////////////
     $query = $conn->prepare("INSERT INTO blogs (user_id,title, blog_name,image,content,category,date) VALUES (?, ?,?,?,?,?,NOW())");
+    $query2 = $conn->prepare("INSERT IGNORE INTO blog_tags (name) VALUES (?)");
+    $query3 = $conn->prepare("INSERT IGNORE INTO blog_tag_connection (blog_id,tag_id) VALUES (?,?)");
+    $query->bind_param("issssi",$user_id, $title,$link, $imagePath,$content,$category);
+    if ($query->execute()) {
+        echo "Blog published successfully!";
+        $blog_id = $query->insert_id;
+        foreach($selected_tags  as  $tag){
+            $query2->bind_param("s",$tag);
+            $query2->execute();
+            $tag_id = $query2->insert_id;
+            if($tag_id){
+                $query3->bind_param("ii",$blog_id,$tag_id);
+                $query3->execute();
+            }
+
+
+        }
+
+    }
+    $query = $conn->prepare("INSERT INTO blogs (user_id,title, blog_name,image,content,category,date) 
+                         VALUES (?, ?,?,?,?,?,NOW())");
+    $query2 = $conn->prepare("INSERT IGNORE INTO blog_tags (name) VALUES (?)");
+    $querySelectTag = $conn->prepare("SELECT id FROM blog_tags WHERE name = ? LIMIT 1");
+    $query3 = $conn->prepare("INSERT IGNORE INTO blog_tag_connection (blog_id,tag_id) VALUES (?,?)");
+
     $query->bind_param("issssi",$user_id, $title,$link, $imagePath,$content,$category);
 
     if ($query->execute()) {
         echo "Blog published successfully!";
+        $blog_id = $query->insert_id;
 
+        foreach($selected_tags as $tag){
+            $query2->bind_param("s",$tag);
+            $query2->execute();
+
+            $querySelectTag->bind_param("s",$tag);
+            $querySelectTag->execute();
+            $result = $querySelectTag->get_result();
+            if($row = $result->fetch_assoc()){
+                $tag_id = $row['id'];
+
+                $query3->bind_param("ii",$blog_id,$tag_id);
+                $query3->execute();
+            }
+        }
     }
+
     $query->close();
+    $query2->close();
+    $querySelectTag->close();
+    $query3->close();
 
-    $query2 = $conn->prepare("INSERT IGNORE INTO blog_tags (name) VALUES (?)");
-    foreach($selected_tags  as  $tag){
-        $query2->bind_param("s",$tag);
-        $query2->execute();
 
-    }
 }
 
 

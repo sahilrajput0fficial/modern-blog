@@ -3,7 +3,8 @@ require 'db.php';
 session_start();
 if (isset($_SESSION['user_id'])){
     $user_id = $_SESSION["user_id"];
-    $user_query = $conn->prepare("Select blogs_count ,favourite_genre from users ;");
+    $user_query = $conn->prepare("Select blogs_count ,favourite_genre from users where id= ?;");
+    $user_query->bind_param("i",$user_id);
     $user_query->execute();
     $run= $user_query->get_result();
     $stats = $run->fetch_assoc();
@@ -281,7 +282,7 @@ $images=$img_query->get_result();
                 Lifestyle
                 </h2>
             </div>
-            <div class=" grid grid-cols-4 gap-6">
+            <div class=" grid grid-cols-3 gap-6">
                 <?php while($row = $life_result->fetch_assoc()): ?>
                 <div class="group overflow-hidden rounded-lg shadow hover:shadow-lg transition bg-white grid grid-cols-2" >
                     <div >
